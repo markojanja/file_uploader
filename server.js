@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import url from "url";
 import session from "express-session";
+import passport from "./config/passport.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,6 +15,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
+app.use(passport.initialize());
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -21,6 +24,8 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+app.use(passport.session());
 
 app.get("/", (req, res) => {
   res.status(200).render("home");
