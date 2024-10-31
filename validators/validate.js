@@ -28,7 +28,9 @@ export const validateSignUp = [
     .trim()
     .custom((value, { req }) => {
       if (value !== req.body.password) {
-        throw new Error("passwords do not match");
+        throw new Error("Passwords do not match");
       }
-    }),
+      return true;
+    })
+    .escape(),
 ];
