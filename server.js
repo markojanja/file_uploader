@@ -3,6 +3,8 @@ import path from "path";
 import url from "url";
 import session from "express-session";
 import passport from "./config/passport.js";
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+import prisma from "./db/prisma.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -19,9 +21,17 @@ app.use(passport.initialize());
 
 app.use(
   session({
+    cookie: {
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    },
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: new PrismaSessionStore(prisma, {
+      checkPeriod: 2 * 60 * 1000,
+      dbRecordIdIsSessionId: true,
+      dbRecordIdFunction: undefined,
+    }),
   })
 );
 

@@ -39,3 +39,10 @@ model Files {
   ownerId  String
   owner    User   @relation(fields: [ownerId], references: [id])
 }
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
