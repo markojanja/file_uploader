@@ -5,6 +5,7 @@ import session from "express-session";
 import passport from "./config/passport.js";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma.js";
+import AuthRoute from "./routes/authRoute.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -40,6 +41,8 @@ app.use(passport.session());
 app.get("/", (req, res) => {
   res.status(200).render("home");
 });
+
+app.use("/auth", AuthRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
