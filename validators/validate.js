@@ -1,5 +1,4 @@
 import { body } from "express-validator";
-import bcrypt from "bcrypt";
 import prisma from "../db/prisma.js";
 
 export const validateSignUp = [
