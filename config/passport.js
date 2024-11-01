@@ -10,12 +10,12 @@ passport.use(
         where: {
           username: username,
         },
-      }); // find user in db
+      });
       if (!user) {
         return done(null, false, { message: "Invalid credentials" });
       }
       const match = bcrypt.compare(password, user.password);
-      if (!match) {
+      if (match) {
         return done(null, false, { message: "Invalid credentials" });
       }
 

@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import bcrypt from "bcrypt";
 import prisma from "../db/prisma.js";
 
 export const validateSignUp = [
@@ -33,4 +34,9 @@ export const validateSignUp = [
       return true;
     })
     .escape(),
+];
+
+export const validateSignin = [
+  body("username").trim().notEmpty().withMessage("Username is required").escape(),
+  body("password").trim().notEmpty().withMessage("Password is required").escape(),
 ];
