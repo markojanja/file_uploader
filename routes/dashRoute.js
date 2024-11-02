@@ -47,20 +47,4 @@ router
     res.redirect("/dashboard");
   });
 
-router
-  .get("files/create", async (req, res) => {
-    res.render("create-form");
-  })
-  .post("files/create", async (req, res) => {
-    const { file } = req.body;
-
-    await prisma.files.create({
-      data: {
-        ownerId: req.user.id,
-        name: folderName,
-      },
-    });
-    res.redirect("/dashboard");
-  });
-
 export default router;
