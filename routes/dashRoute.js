@@ -5,30 +5,31 @@ import { sortFilesAndFolders } from "../utils/utils.js";
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: req.user.id,
-    },
-    include: {
-      folders: {
-        orderBy: {
-          createdAt: "asc",
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.user.id,
+      },
+      include: {
+        folders: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
+        files: {
+          orderBy: {
+            createdAt: "asc",
+          },
         },
       },
-      files: {
-        orderBy: {
-          createdAt: "asc",
-        },
-      },
-    },
-  });
+    });
 
-  const data = [...user.folders, ...user.files];
-  const sorted = sortFilesAndFolders(data, "dsc");
-
-  console.log(sorted);
-
-  res.render("dash", { data: sorted });
+    const data = [...user.folders, ...user.files];
+    const sorted = sortFilesAndFolders(data, "dsc");
+    res.render("dash", { data: sorted });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 router
@@ -37,14 +38,17 @@ router
   })
   .post("/create", async (req, res) => {
     const { folderName } = req.body;
-
-    await prisma.folder.create({
-      data: {
-        ownerId: req.user.id,
-        name: folderName,
-      },
-    });
-    res.redirect("/dashboard");
+    try {
+      await prisma.folder.create({
+        data: {
+          ownerId: req.user.id,
+          name: folderName,
+        },
+      });
+      res.redirect("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
   });
 
 export default router;
