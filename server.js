@@ -6,6 +6,7 @@ import passport from "./config/passport.js";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma.js";
 import AuthRoute from "./routes/authRoute.js";
+import DashRoute from "./routes/dashRoute.js";
 import { isAuth } from "./middleware/auth.middleware.js";
 
 const app = express();
@@ -45,9 +46,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", AuthRoute);
 
-app.get("/dashboard", isAuth, (req, res) => {
-  res.send("protected route");
-});
+app.use("/dashboard", isAuth, DashRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

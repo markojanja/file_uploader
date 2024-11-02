@@ -57,3 +57,10 @@ export const signinPost = (req, res, next) => {
     });
   })(req, res, next);
 };
+
+export const logout = async (req, res, next) => {
+  req.logout((err) => {
+    if (err) return next(err);
+    res.redirect("/");
+  });
+};

@@ -5,7 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["omitApi"]
 }
 
 datasource db {
@@ -19,25 +20,37 @@ model User {
   password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Folder    Folder[]
-  Files     Files[]
+  folders   Folder[]
+  files     Files[]
+}
+
+enum Type {
+  FOLDER
+  FILE
 }
 
 model Folder {
-  id      String  @id @default(uuid())
-  name    String
-  files   Files[]
-  ownerId String
-  owner   User    @relation(fields: [ownerId], references: [id])
+  id        String   @id @default(uuid())
+  name      String
+  files     Files[]
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type      Type     @default(FOLDER)
 }
 
 model Files {
-  id       String @id @default(uuid())
-  url      String
-  folderId String
-  folder   Folder @relation(fields: [folderId], references: [id])
-  ownerId  String
-  owner    User   @relation(fields: [ownerId], references: [id])
+  id        String   @id @default(uuid())
+  name      String
+  url       String
+  folderId  String?
+  folder    Folder?  @relation(fields: [folderId], references: [id])
+  ownerId   String
+  owner     User     @relation(fields: [ownerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  type      Type     @default(FILE)
 }
 
 model Session {
