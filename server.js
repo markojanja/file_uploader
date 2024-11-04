@@ -8,6 +8,7 @@ import prisma from "./db/prisma.js";
 import AuthRoute from "./routes/authRoute.js";
 import DashRoute from "./routes/dashRoute.js";
 import { isAuth } from "./middleware/auth.middleware.js";
+import getUser from "./middleware/getUser.middlware.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -39,6 +40,8 @@ app.use(
 );
 
 app.use(passport.session());
+
+app.use(getUser);
 
 app.get("/", (req, res) => {
   res.status(200).render("home");

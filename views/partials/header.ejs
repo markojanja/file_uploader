@@ -1,0 +1,18 @@
+<header>
+  <div class="logo">
+    <h2>Mdrive</h2>
+  </div>
+  <ul class="links-container">
+    <% if (!locals.user) { %>
+    <li><a href="/auth/signin">sign in</a></li>
+    <li><a href="/auth/signup">sign-up</a></li>
+    <% } %> <% if (locals.user) { %>
+    <li>Hi, <%= locals.user.username %></li>
+    <li>
+      <form action="/auth/logout" method="post">
+        <button>Logout</button>
+      </form>
+    </li>
+    <% } %>
+  </ul>
+</header>

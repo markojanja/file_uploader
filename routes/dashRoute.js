@@ -1,36 +1,10 @@
 import express from "express";
 import prisma from "../db/prisma.js";
-import { sortFilesAndFolders } from "../utils/utils.js";
+import { dashboardGet } from "../controllers/dash.controller.js";
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  try {
-    const user = await prisma.user.findUnique({
-      where: {
-        id: req.user.id,
-      },
-      include: {
-        folders: {
-          orderBy: {
-            createdAt: "asc",
-          },
-        },
-        files: {
-          orderBy: {
-            createdAt: "asc",
-          },
-        },
-      },
-    });
-
-    const data = [...user.folders, ...user.files];
-    const sorted = sortFilesAndFolders(data, "dsc");
-    res.render("dash", { data: sorted });
-  } catch (error) {
-    console.log(error);
-  }
-});
+router.get("/", dashboardGet);
 
 router
   .get("/create", async (req, res) => {
