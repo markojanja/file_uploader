@@ -9,6 +9,9 @@ export const dashboardGet = async (req, res) => {
       },
       include: {
         folders: {
+          where: {
+            folderId: null,
+          },
           orderBy: {
             createdAt: "asc",
           },
@@ -22,8 +25,9 @@ export const dashboardGet = async (req, res) => {
     });
 
     const data = [...user.folders, ...user.files];
+
     const sortedData = sortFilesAndFolders(data, "dsc");
-    res.render("dash", { data: sortedData });
+    res.render("dash", { data: sortedData, parentId: null });
   } catch (error) {
     console.log(error);
   }

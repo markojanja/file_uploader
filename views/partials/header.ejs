@@ -1,6 +1,8 @@
 <header>
   <div class="logo">
-    <h2>Mdrive</h2>
+    <a href="/">
+      <h2>Mdrive</h2>
+    </a>
   </div>
   <ul class="links-container">
     <% if (!locals.user) { %>
@@ -8,6 +10,7 @@
     <li><a href="/auth/signup">sign-up</a></li>
     <% } %> <% if (locals.user) { %>
     <li>Hi, <%= locals.user.username %></li>
+    <li><a href="/dashboard">dash</a></li>
     <li>
       <form action="/auth/logout" method="post">
         <button>Logout</button>

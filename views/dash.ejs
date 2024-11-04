@@ -6,11 +6,13 @@
     <main>
       <h1>Dash</h1>
 
-      <a href="dashboard/create">Add new folder</a>
+      <a href="/dashboard<%= parentId ? '/' + parentId + '/create' : '/create' %>"
+        >Add new folder</a
+      >
       <ul>
         <% data.forEach(item => { %>
         <li>
-          <a href="<%= item.type === 'FOLDER' ? '/dashboard/folders' : '/dashboard/files' %>">
+          <a href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : '/dashboard/files' %>">
             <%= item.name %>
           </a>
         </li>
