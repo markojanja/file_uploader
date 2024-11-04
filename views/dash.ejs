@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <%- include("partials/header") %>
+    <main>
+      <h1>Dash</h1>
+
+      <a href="/dashboard<%= parentId ? '/' + parentId + '/create' : '/create' %>"
+        >Add new folder</a
+      >
+      <ul>
+        <% data.forEach(item => { %>
+        <li>
+          <a href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : '/dashboard/files' %>">
+            <%= item.name %>
+          </a>
+        </li>
+        <% }) %>
+      </ul>
+    </main>
+  </body>
+</html>

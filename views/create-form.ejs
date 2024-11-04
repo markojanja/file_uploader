@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <h1>Create folder</h1>
+    <form action="/dashboard<%= parentId ? '/' + parentId + '/create' : '/create' %>" method="POST">
+      <label for="folder">Folder name:</label>
+      <input type="text" placeholder="folder" name="folderName" />
+      <button>create</button>
+    </form>
+  </body>
+</html>
