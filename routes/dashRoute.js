@@ -1,5 +1,4 @@
 import express from "express";
-import prisma from "../db/prisma.js";
 import { dashboardGet } from "../controllers/dash.controller.js";
 import folderRoute from "../routes/folderRoute.js";
 import { folderCreate } from "../controllers/folder.controller.js";
@@ -13,6 +12,7 @@ router
     res.render("create-form", { parentId: null });
   })
   .post("/create", folderCreate);
+
 router.use("/", folderRoute);
 
 export default router;
