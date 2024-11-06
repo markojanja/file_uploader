@@ -12,7 +12,7 @@ export const uploadCreatePost = async (req, res) => {
   const fileUrl = `/uploads/${req.file.filename}`;
 
   try {
-    const newFile = await prisma.files.create({
+    const newFile = await prisma.file.create({
       data: {
         name: name,
         ownerId: userId,

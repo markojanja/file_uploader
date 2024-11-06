@@ -13,7 +13,10 @@
       <ul>
         <% data.forEach(item => { %>
         <li>
-          <a href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : item.url %>">
+          <a
+            href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : item.url %>"
+            target="<%= item.type ==='FILE' ? '_blank': '_parent' %>"
+          >
             <%= item.name %>
           </a>
         </li>
