@@ -1,6 +1,5 @@
 import express from "express";
 import { upload } from "../config/multer.js";
-import prisma from "../db/prisma.js";
 import { uploadCreatePost, uploadGet } from "../controllers/file.controller.js";
 
 const router = express.Router();
