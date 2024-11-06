@@ -17,6 +17,9 @@ export const dashboardGet = async (req, res) => {
           },
         },
         files: {
+          where: {
+            folderId: null,
+          },
           orderBy: {
             createdAt: "asc",
           },

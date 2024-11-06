@@ -9,10 +9,11 @@
       <a href="/dashboard<%= parentId ? '/' + parentId + '/create' : '/create' %>"
         >Add new folder</a
       >
+      <a href="/dashboard<%= parentId ? '/' + parentId + '/upload' : '/upload' %>">Upload file</a>
       <ul>
         <% data.forEach(item => { %>
         <li>
-          <a href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : '/dashboard/files' %>">
+          <a href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : item.url %>">
             <%= item.name %>
           </a>
         </li>

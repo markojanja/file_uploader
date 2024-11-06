@@ -2,7 +2,7 @@ import prisma from "../db/prisma.js";
 import { sortFilesAndFolders } from "../utils/utils.js";
 
 export const folderGet = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params || null;
 
   try {
     const folder = await prisma.folder.findUnique({
@@ -27,6 +27,12 @@ export const folderGet = async (req, res) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const folderCreateGet = (req, res) => {
+  const { id } = req.params || null;
+
+  res.render("create-form", { parentId: id });
 };
 
 export const folderCreate = async (req, res) => {
