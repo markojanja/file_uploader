@@ -7,7 +7,7 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma.js";
 import AuthRoute from "./routes/authRoute.js";
 import DashRoute from "./routes/dashRoute.js";
-import { isAuth } from "./middleware/auth.middleware.js";
+import { isAuth, redirectIfAuth } from "./middleware/auth.middleware.js";
 import getUser from "./middleware/getUser.middlware.js";
 
 const app = express();
@@ -43,7 +43,7 @@ app.use(passport.session());
 
 app.use(getUser);
 
-app.get("/", (req, res) => {
+app.get("/", redirectIfAuth, (req, res) => {
   res.status(200).render("home");
 });
 

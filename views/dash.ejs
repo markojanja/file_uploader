@@ -13,6 +13,11 @@
       <ul>
         <% data.forEach(item => { %>
         <li>
+          <% if (item.type === 'FILE') { %>
+          <i class="fa-solid fa-file"></i>
+          <% } %> <% if (item.type === 'FOLDER') { %>
+          <i class="fa-solid fa-folder"></i>
+          <% } %>
           <a
             href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : item.url %>"
             target="<%= item.type ==='FILE' ? '_blank': '_parent' %>"
