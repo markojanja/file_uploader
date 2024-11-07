@@ -20,7 +20,7 @@ export const folderGet = async (req, res) => {
       },
     });
 
-    console.log(folder);
+    // console.log(folder);
 
     const filesAndFolders = [...folder.folders, ...folder.files];
     const sortedData = sortFilesAndFolders(filesAndFolders);
@@ -53,6 +53,64 @@ export const folderCreate = async (req, res) => {
       return res.redirect("/dashboard");
     }
     res.redirect(`/dashboard/${parentId}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const folderEdit = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const folder = await prisma.folder.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        id: true,
+        name: true,
+      },
+    });
+
+    console.log(folder);
+
+    res.render("edit-form", { parentId: id, folder });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const folderEditPost = async (req, res) => {
+  const { id } = req.params || null;
+  const { name } = req.body;
+
+  try {
+    console.log(name);
+    await prisma.folder.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+      },
+    });
+
+    res.redirect(`/dashboard/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const folderDeletePost = async (req, res) => {
+  const id = req.params.id;
+
+  try {
+    await prisma.folder.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
   }

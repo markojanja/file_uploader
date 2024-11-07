@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <h1>Edit folder</h1>
+    <form action="/dashboard<%= parentId ? '/' + parentId + '/edit' : '/edit' %>" method="POST">
+      <label for="folder">Folder name:</label>
+      <input type="text" placeholder="folder" name="name" value="<%= folder.name %>" />
+      <button>save</button>
+    </form>
+  </body>
+</html>
