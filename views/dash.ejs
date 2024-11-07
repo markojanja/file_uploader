@@ -4,7 +4,7 @@
   <body>
     <%- include("partials/header") %>
     <main>
-      <h1>Dash</h1>
+      <h1><%= title %></h1>
 
       <a href="/dashboard<%= parentId ? '/' + parentId + '/create' : '/create' %>"
         >Add new folder</a

@@ -20,10 +20,12 @@ export const folderGet = async (req, res) => {
       },
     });
 
+    console.log(folder);
+
     const filesAndFolders = [...folder.folders, ...folder.files];
     const sortedData = sortFilesAndFolders(filesAndFolders);
 
-    res.render("dash", { data: sortedData, parentId: id });
+    res.render("dash", { title: folder.name, data: sortedData, parentId: id });
   } catch (error) {
     console.log(error);
   }
@@ -47,7 +49,10 @@ export const folderCreate = async (req, res) => {
         name: folderName,
       },
     });
-    res.redirect("/dashboard");
+    if (parentId === null) {
+      return res.redirect("/dashboard");
+    }
+    res.redirect(`/dashboard/${parentId}`);
   } catch (error) {
     console.log(error);
   }
