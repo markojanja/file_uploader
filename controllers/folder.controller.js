@@ -25,7 +25,12 @@ export const folderGet = async (req, res) => {
     const filesAndFolders = [...folder.folders, ...folder.files];
     const sortedData = sortFilesAndFolders(filesAndFolders);
 
-    res.render("dash", { title: folder.name, data: sortedData, parentId: id });
+    res.render("dash", {
+      title: folder.name,
+      folderId: folder.folderId,
+      data: sortedData,
+      parentId: id,
+    });
   } catch (error) {
     console.log(error);
   }

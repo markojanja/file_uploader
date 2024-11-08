@@ -1,3 +1,62 @@
 h1 {
   color: red;
 }
+table {
+  width: 60%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  font-family: Arial, sans-serif;
+  text-align: left;
+  margin-inline: auto;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+thead th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+  color: #333;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #eaeaea;
+}
+
+td i {
+  margin-right: 8px;
+  color: #666;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+th,
+td {
+  vertical-align: middle;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.table-actions a {
+  color: #555;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.table-actions a:hover {
+  background-color: #f0f0f0;
+}

@@ -4,29 +4,62 @@
   <body>
     <%- include("partials/header") %>
     <main>
+      <a href="/dashboard/<%= folderId ? folderId : '' %>">Go Back</a>
       <h1><%= title %></h1>
 
       <a href="/dashboard/<%= parentId ? parentId + '/' : '' %>create">Add new folder</a>
       <a href="/dashboard/<%= parentId ? parentId + '/' : '' %>upload">Upload file</a>
 
-      <ul>
-        <% data.forEach(item => { %>
-        <li>
-          <% if (item.type === 'FILE') { %>
-          <i class="fa-solid fa-file"></i>
-          <a href="<%= item.url %>" target="_blank"> <%= item.name %> </a>
-          <span> <%= item.ext_name %> </span>
-          <a href="/dashboard/<%= item.id %>/download"><i class="fa-solid fa-download"></i></a>
-          <a href="/dashboard/<%= item.id %>/delete"><i class="fa-solid fa-trash"></i></a>
-          <% } else if (item.type === 'FOLDER') { %>
-          <i class="fa-solid fa-folder"></i>
-          <a href="/dashboard/<%= item.id %>"><%= item.name %></a>
-          <a href="/dashboard/<%= item.id %>/edit"><i class="fa-solid fa-edit"></i></a>
-          <a href="/dashboard/<%= item.id %>/remove"><i class="fa-solid fa-trash"></i></a>
-          <% } %>
-        </li>
-        <% }) %>
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Extension</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% data.forEach(item => { %>
+          <tr>
+            <td>
+              <% if (item.type === 'FILE') { %>
+              <i class="fa-solid fa-file"></i>
+              <% } else if (item.type === 'FOLDER') { %>
+              <i class="fa-solid fa-folder"></i>
+              <% } %>
+            </td>
+            <td>
+              <% if (item.type === 'FILE') { %>
+              <a href="<%= item.url %>" target="_blank"><%= item.name %></a>
+              <% } else if (item.type === 'FOLDER') { %>
+              <a href="/dashboard/<%= item.id %>"><%= item.name %></a>
+              <% } %>
+            </td>
+            <td>
+              <% if (item.type === 'FILE') { %> <%= item.ext_name %> <% } else { %> folder <% } %>
+            </td>
+            <td>
+              <% if (item.type === 'FILE') { %>
+              <a href="/dashboard/<%= item.id %>/download" title="Download">
+                <i class="fa-solid fa-download"></i>
+              </a>
+              <a href="/dashboard/<%= item.id %>/delete" title="Delete">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+              <% } else if (item.type === 'FOLDER') { %>
+              <a href="/dashboard/<%= item.id %>/edit" title="Edit">
+                <i class="fa-solid fa-edit"></i>
+              </a>
+              <a href="/dashboard/<%= item.id %>/remove" title="Remove">
+                <i class="fa-solid fa-trash"></i>
+              </a>
+              <% } %>
+            </td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </main>
   </body>
 </html>
