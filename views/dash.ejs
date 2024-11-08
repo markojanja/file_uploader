@@ -6,7 +6,6 @@
     <main>
       <h1><%= title %></h1>
 
-      <!-- Simplified URLs for 'Add new folder' and 'Upload file' links -->
       <a href="/dashboard/<%= parentId ? parentId + '/' : '' %>create">Add new folder</a>
       <a href="/dashboard/<%= parentId ? parentId + '/' : '' %>upload">Upload file</a>
 
@@ -16,6 +15,7 @@
           <% if (item.type === 'FILE') { %>
           <i class="fa-solid fa-file"></i>
           <a href="<%= item.url %>" target="_blank"> <%= item.name %> </a>
+          <span> <%= item.ext_name %> </span>
           <a href="/dashboard/<%= item.id %>/download">download</a>
           <a href="/dashboard/<%= item.id %>/delete">remove</a>
           <% } else if (item.type === 'FOLDER') { %>

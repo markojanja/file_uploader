@@ -17,10 +17,13 @@ export const uploadCreatePost = async (req, res) => {
   const userId = req.user.id;
   const fileUrl = `/uploads/${req.file.filename}`;
 
+  const ext_name = path.extname(req.file.filename);
+
   try {
     const newFile = await prisma.file.create({
       data: {
         name: name,
+        ext_name: ext_name,
         ownerId: userId,
         url: fileUrl,
         folderId: id,
@@ -70,7 +73,6 @@ export const deleteFile = async (req, res) => {
       if (err) throw err;
     });
 
-    console.log("deleted file", file);
     res.redirect("/dashboard");
   } catch (error) {
     console.log(error);
