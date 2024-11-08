@@ -104,11 +104,13 @@ export const folderDeletePost = async (req, res) => {
   const id = req.params.id;
 
   try {
-    await prisma.folder.delete({
+    const folder = await prisma.folder.delete({
       where: {
         id: id,
       },
     });
+
+    console.log("f to del", folder);
 
     res.redirect("/dashboard");
   } catch (error) {

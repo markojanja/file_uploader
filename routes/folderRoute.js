@@ -18,6 +18,6 @@ router.get("/:id/create", folderCreateGet).post("/:id/create", folderCreate);
 
 router.get("/:id/edit", folderEdit).post("/:id/edit", folderEditPost);
 
-router.get("/:id/delete", folderDeletePost);
+router.get("/:id/remove", folderDeletePost);
 
 export default router;

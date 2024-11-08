@@ -6,24 +6,24 @@
     <main>
       <h1><%= title %></h1>
 
-      <a href="/dashboard<%= parentId ? '/' + parentId + '/create' : '/create' %>"
-        >Add new folder</a
-      >
-      <a href="/dashboard<%= parentId ? '/' + parentId + '/upload' : '/upload' %>">Upload file</a>
+      <!-- Simplified URLs for 'Add new folder' and 'Upload file' links -->
+      <a href="/dashboard/<%= parentId ? parentId + '/' : '' %>create">Add new folder</a>
+      <a href="/dashboard/<%= parentId ? parentId + '/' : '' %>upload">Upload file</a>
+
       <ul>
         <% data.forEach(item => { %>
         <li>
           <% if (item.type === 'FILE') { %>
           <i class="fa-solid fa-file"></i>
-          <% } %> <% if (item.type === 'FOLDER') { %>
+          <a href="<%= item.url %>" target="_blank"> <%= item.name %> </a>
+          <a href="/dashboard/<%= item.id %>/download">download</a>
+          <a href="/dashboard/<%= item.id %>/delete">remove</a>
+          <% } else if (item.type === 'FOLDER') { %>
           <i class="fa-solid fa-folder"></i>
+          <a href="/dashboard/<%= item.id %>"><%= item.name %></a>
+          <a href="/dashboard/<%= item.id %>/edit">edit</a>
+          <a href="/dashboard/<%= item.id %>/remove">remove</a>
           <% } %>
-          <a
-            href="<%= item.type === 'FOLDER' ? '/dashboard/' + item.id : item.url %>"
-            target="<%= item.type ==='FILE' ? '_blank': '_parent' %>"
-          >
-            <%= item.name %>
-          </a>
         </li>
         <% }) %>
       </ul>
