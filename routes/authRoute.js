@@ -18,6 +18,6 @@ router.get("/", (req, res) => {
 
 router.get("/signup", redirectIfAuth, signupGet).post("/signup", validateSignUp, signupPost);
 router.get("/signin", redirectIfAuth, signinGet).post("/signin", validateSignin, signinPost);
-router.post("/logout", logout);
+router.get("/logout", logout);
 
 export default router;
