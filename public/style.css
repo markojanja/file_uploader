@@ -198,6 +198,11 @@ td {
 }
 
 .feature-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
   background-color: #151518;
   border: 1px solid #16161a;
   border-radius: 8px;
@@ -226,5 +231,34 @@ td {
 
 .feature-card i {
   color: #be123c;
-  font-size: 3rem;
+  font-size: 3.5rem;
+}
+.about-container {
+  display: flex;
+  padding: 2rem 1rem;
+  gap: 1rem;
+}
+.about-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+.about-copy h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+.about-copy p {
+  line-height: 1.3;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+.about-copy a {
+  margin-top: 2rem;
+}
+.image-container {
+  flex: 1;
+  height: auto;
 }
