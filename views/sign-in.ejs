@@ -2,18 +2,21 @@
 <html lang="en">
   <%- include("partials/head") %>
   <body>
-    <h1>Sign in page</h1>
-    <form action="/auth/signin" method="post">
-      <label for="username">Username</label>
-      <input type="text" name="username" id="username" />
+    <%- include("partials/header") %>
+    <div class="form-container">
+      <h1>Sign in page</h1>
+      <form class="form" action="/auth/signin" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" />
 
-      <label for="password">Password</label>
-      <input type="password" name="password" id="password" />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
 
-      <button>submit</button>
-      <% if (locals.errors) { %> <% errors.forEach(error => { %>
-      <p><%= error.msg %></p>
-      <% }) %> <% } %>
-    </form>
+        <button class="btn-primary-sm">Sign In</button>
+        <% if (locals.errors) { %> <% errors.forEach(error => { %>
+        <p><%= error.msg %></p>
+        <% }) %> <% } %>
+      </form>
+    </div>
   </body>
 </html>
