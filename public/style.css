@@ -334,5 +334,8 @@ td {
 }
 .error p {
   color: #450a0a;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: left;
+  width: 100%;
 }
