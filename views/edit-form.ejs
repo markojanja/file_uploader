@@ -2,11 +2,19 @@
 <html lang="en">
   <%- include("partials/head") %>
   <body>
-    <h1>Edit folder</h1>
-    <form action="/dashboard<%= parentId ? '/' + parentId + '/edit' : '/edit' %>" method="POST">
-      <label for="folder">Folder name:</label>
-      <input type="text" placeholder="folder" name="name" value="<%= folder.name %>" />
-      <button>save</button>
-    </form>
+    <%- include("partials/header") %>
+    <div class="form-container">
+      <h1>Edit folder</h1>
+      <form
+        action="/dashboard<%= parentId ? '/' + parentId + '/edit' : '/edit' %>"
+        method="POST"
+        class="form"
+      >
+        <label for="folder">Folder name:</label>
+        <input type="text" placeholder="folder" name="name" value="<%= folder.name %>" />
+        <button class="btn-primary-sm">save</button>
+      </form>
+    </div>
+    <%- include('partials/footer') %>
   </body>
 </html>

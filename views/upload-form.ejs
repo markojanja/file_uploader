@@ -2,16 +2,21 @@
 <html lang="en">
   <%- include("partials/head") %>
   <body>
-    <h1>Upload file</h1>
-    <form
-      action="/dashboard<%= parentId ? '/' + parentId + '/upload' : '/upload' %>"
-      method="POST"
-      enctype="multipart/form-data"
-    >
-      <label for="name">File name:</label>
-      <input type="text" placeholder="file name" name="name" />
-      <input type="file" placeholder="file name" name="file" />
-      <button>Upload</button>
-    </form>
+    <%- include("partials/header") %>
+    <div class="form-container">
+      <h1>Upload file</h1>
+      <form
+        action="/dashboard<%= parentId ? '/' + parentId + '/upload' : '/upload' %>"
+        method="POST"
+        enctype="multipart/form-data"
+        class="form"
+      >
+        <label for="name">File name:</label>
+        <input type="text" placeholder="file name" name="name" />
+        <input type="file" placeholder="file name" name="file" />
+        <button class="btn-primary-sm">Upload</button>
+      </form>
+    </div>
+    <%- include('partials/footer') %>
   </body>
 </html>

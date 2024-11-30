@@ -268,6 +268,7 @@ td {
 .dash {
   width: 80%;
   margin-inline: auto;
+  flex: 1;
 }
 .form-container {
   display: flex;
@@ -301,4 +302,21 @@ td {
   font-size: 1.1rem;
   font-weight: 600;
   border-radius: 8px;
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+}
+
+.dash,
+.nav,
+.banner,
+.features-container,
+.about-container,
+.footer {
+  width: 90%;
+  margin-inline: auto;
 }
