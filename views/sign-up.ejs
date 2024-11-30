@@ -16,9 +16,13 @@
         <input type="password" name="confirmPassword" id="confirmPassword" />
 
         <button class="btn-primary-sm">Sign Up</button>
-        <% if (locals.errors) { %> <% errors.forEach(error => { %>
-        <p><%= error.msg %></p>
-        <% }) %> <% } %>
+        <% if (locals.errors) { %>
+        <div class="error">
+          <% errors.forEach(error => { %>
+          <p><%= error.msg %></p>
+          <% }) %>
+        </div>
+        <% } %>
       </form>
     </div>
     <%- include('partials/footer') %>

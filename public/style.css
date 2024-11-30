@@ -320,3 +320,19 @@ td {
   width: 90%;
   margin-inline: auto;
 }
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #f87171;
+  border: 1px solid #450a0a;
+  border-radius: 0.5rem;
+}
+.error p {
+  color: #450a0a;
+  font-weight: 700;
+}
