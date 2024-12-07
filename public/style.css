@@ -63,7 +63,7 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:hover {
-  background-color: rgba(190, 18, 60, 0.4);
+  background-color: #16161a;
 }
 
 td i {
@@ -79,6 +79,9 @@ a {
 th,
 td {
   vertical-align: middle;
+}
+tr {
+  transition: all 0.2s ease;
 }
 
 .table-actions {
@@ -291,8 +294,8 @@ td {
   background-color: #151518;
   border-radius: 1rem;
   min-width: 316px;
-  padding: 0.5rem;
   margin: 0 auto;
+  padding: 1rem 0.5rem;
 
   @media (min-width: 720px) {
     min-width: 420px;
