@@ -2,7 +2,7 @@
 <html lang="en">
   <%- include("partials/head") %>
   <body>
-    <%- include("partials/header") %>
+    <%- include("partials/share-popup") %>
     <main class="dash">
       <a href="/dashboard/<%= folderId ? folderId : '' %>">Go Back</a>
       <h1><%= title %></h1>
@@ -15,5 +15,6 @@
       <% } %>
     </main>
     <%- include('partials/footer') %>
+    <script src="/dash.js"></script>
   </body>
 </html>

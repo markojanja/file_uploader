@@ -44,17 +44,33 @@ model Folder {
 }
 
 model File {
-  id        String   @id @default(uuid())
+  id        String       @id @default(uuid())
   name      String
   ext_name  String
   url       String
   folderId  String?
-  folder    Folder?  @relation(fields: [folderId], references: [id])
+  folder    Folder?      @relation(fields: [folderId], references: [id])
   ownerId   String
-  owner     User     @relation(fields: [ownerId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  type      Type     @default(FILE)
+  owner     User         @relation(fields: [ownerId], references: [id])
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now()) @updatedAt
+  type      Type         @default(FILE)
+  shares    SharedFile[]
+}
+
+model Share {
+  id          String       @id @default(uuid())
+  expiresAt   DateTime
+  createdAt   DateTime     @default(now())
+  sharedFiles SharedFile[]
+}
+
+model SharedFile {
+  id      String @id @default(uuid())
+  fileId  String
+  file    File   @relation(fields: [fileId], references: [id])
+  shareId String
+  share   Share  @relation(fields: [shareId], references: [id])
 }
 
 model Session {

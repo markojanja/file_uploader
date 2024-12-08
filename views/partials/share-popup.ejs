@@ -1,0 +1,16 @@
+<div class="popup">
+  <form action="/shared" method="post" class="share-form">
+    <div class="group">
+      <input class="share-link" type="text" disabled id="link" name="link" />
+      <i class="fa-solid fa-copy copy-btn" data-link="link"></i>
+    </div>
+    <input type="hidden" id="fileId" name="fileId" />
+    <label for="expireIn">Expires in:</label>
+    <select name="expireIn" id="expireIn">
+      <option value="1">1HOUR</option>
+      <option value="3">3HOURS</option>
+      <option value="6">6HOURS</option>
+    </select>
+    <button>add to shared</button>
+  </form>
+</div>

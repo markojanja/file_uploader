@@ -7,6 +7,8 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import prisma from "./db/prisma.js";
 import AuthRoute from "./routes/authRoute.js";
 import DashRoute from "./routes/dashRoute.js";
+import SharedRoute from "./routes/sharedRoute.js";
+import SharePublicRoute from "./routes/sharedPublicRoute.js";
 import { isAuth, redirectIfAuth } from "./middleware/auth.middleware.js";
 import getUser from "./middleware/getUser.middlware.js";
 
@@ -50,6 +52,10 @@ app.get("/", redirectIfAuth, (req, res) => {
 app.use("/auth", AuthRoute);
 
 app.use("/dashboard", isAuth, DashRoute);
+
+app.use("/", isAuth, SharedRoute);
+
+app.use("/share", SharePublicRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
