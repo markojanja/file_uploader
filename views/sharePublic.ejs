@@ -10,9 +10,16 @@
             <h1><%= data.name %></h1>
             <p>expires at: <%= data.expiresAt %></p>
           </div>
+          <% if (data.ext.includes('jpg') || data.ext.includes("jpeg") || data.ext.includes("png")
+          || data.ext.includes("gif")) { %>
           <div class="share-img">
             <img src="<%= data.url %> " alt="<%= data.name %> " />
           </div>
+          <% } %> <% if (data.ext.includes('pdf')) { %>
+          <div class="share-img">
+            <img src="/assets/pdf.png" alt="pdf file" />
+          </div>
+          <% } %>
         </div>
       </main>
     </div>

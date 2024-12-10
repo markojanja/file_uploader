@@ -5,7 +5,9 @@ export const shared = async (req, res) => {
   const currentTime = new Date();
 
   if (!fileId || !expireIn || isNaN(expireIn)) {
-    return res.status(400).json({ message: "Invalid file ID or expiration time." });
+    return res
+      .status(400)
+      .render("sharedError", { message: { title: "Invalid file ID or expiration time." } });
   }
 
   const file = await prisma.file.findUnique({
@@ -106,6 +108,7 @@ export const sharePublic = async (req, res) => {
     const data = {
       name: sharedFile.file.name,
       url: sharedFile.file.url,
+      ext: sharedFile.file.ext_name,
       expiresAt: new Date(sharedFile.share.expiresAt).toLocaleString(),
     };
 
