@@ -25,7 +25,7 @@ export const dashboardGet = async (req, res) => {
 
     const sortedData = sortFilesAndFolders(data, "dsc");
     res.render("dash", {
-      title: `${user.username}'s dashboard`,
+      title: `${user.username}`,
       folderId: null,
       data: sortedData,
       parentId: null,

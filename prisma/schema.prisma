@@ -71,6 +71,8 @@ model SharedFile {
   file    File   @relation(fields: [fileId], references: [id])
   shareId String
   share   Share  @relation(fields: [shareId], references: [id])
+
+  @@unique([fileId])
 }
 
 model Session {

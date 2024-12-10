@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head") %>
+  <body>
+    <%- include("partials/header") %>
+    <div class="container">
+      <main class="share-main">
+        <div class="share-container">
+          <div class="share-content">
+            <h1><%= data.name %></h1>
+            <p>expires at: <%= data.expiresAt %></p>
+          </div>
+          <div class="share-img">
+            <img src="<%= data.url %> " alt="<%= data.name %> " />
+          </div>
+        </div>
+      </main>
+    </div>
+    <%- include("partials/footer") %>
+  </body>
+</html>

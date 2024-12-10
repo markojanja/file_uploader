@@ -8,7 +8,7 @@ shareB.forEach((b) => {
 
     pops.classList.toggle("show");
     const input = document.querySelector(".share-link");
-    input.value = `http://localhost:3000/share/${b.dataset.id}`;
+    input.value = `http://localhost:3000/shared/${b.dataset.id}`;
     fileId.value = b.dataset.id.trim();
   });
 });

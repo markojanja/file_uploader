@@ -41,6 +41,7 @@ export const uploadCreatePost = async (req, res) => {
 
 export const downloadFile = async (req, res) => {
   const id = req.params.id;
+
   try {
     const file = await prisma.file.findUnique({
       where: {
@@ -63,6 +64,27 @@ export const deleteFile = async (req, res) => {
   const id = req.params.id;
 
   try {
+    const fileExist = await prisma.sharedFile.findFirst({
+      where: {
+        fileId: id,
+      },
+      include: {
+        share: true,
+      },
+    });
+
+    await prisma.sharedFile.delete({
+      where: {
+        id: fileExist.id,
+      },
+    });
+
+    await prisma.share.delete({
+      where: {
+        id: fileExist.shareId,
+      },
+    });
+
     const file = await prisma.file.delete({
       where: {
         id: id,

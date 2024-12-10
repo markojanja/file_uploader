@@ -53,9 +53,9 @@ app.use("/auth", AuthRoute);
 
 app.use("/dashboard", isAuth, DashRoute);
 
-app.use("/", isAuth, SharedRoute);
+app.use("/", SharedRoute);
 
-app.use("/share", SharePublicRoute);
+app.use("/shared", SharePublicRoute);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
