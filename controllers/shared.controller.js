@@ -11,7 +11,7 @@ export const shared = async (req, res) => {
   }
 
   const file = await prisma.file.findUnique({
-    where: { id: fileId.trim() },
+    where: { id: fileId },
   });
 
   if (!file) {
@@ -20,7 +20,7 @@ export const shared = async (req, res) => {
 
   const fileExist = await prisma.sharedFile.findFirst({
     where: {
-      fileId: fileId.trim(),
+      fileId: fileId,
     },
     include: {
       share: true,
@@ -102,7 +102,7 @@ export const sharePublic = async (req, res) => {
     if (!sharedFile) {
       return res
         .status(404)
-        .render("sharedError", { message: { text: "Share not found or expired" } });
+        .render("sharedError", { message: { text: "File not found or expired" } });
     }
 
     const data = {
