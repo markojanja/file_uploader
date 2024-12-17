@@ -1,0 +1,3 @@
+const errorHandler = (err, req, res, next) => {
+  //error hander logic goes here...
+};
