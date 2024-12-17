@@ -57,6 +57,10 @@ app.use("/", SharedRoute);
 
 app.use("/shared", SharePublicRoute);
 
+app.all("*", (req, res) => {
+  res.status(404).render("404");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
