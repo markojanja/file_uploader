@@ -20,8 +20,6 @@ export const folderGet = async (req, res) => {
       },
     });
 
-    // console.log(folder);
-
     const filesAndFolders = [...folder.folders, ...folder.files];
     const sortedData = sortFilesAndFolders(filesAndFolders);
 

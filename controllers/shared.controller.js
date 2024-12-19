@@ -1,56 +1,51 @@
 import prisma from "../db/prisma.js";
 
-export const shared = async (req, res) => {
+export const shared = async (req, res, next) => {
   const { fileId, expireIn } = req.body;
-  const currentTime = new Date();
 
   if (!fileId || !expireIn || isNaN(expireIn)) {
-    return res
-      .status(400)
-      .render("sharedError", { message: { title: "Invalid file ID or expiration time." } });
+    const error = new Error("Invalid file ID or expiration time.");
+    error.status = 400;
+    return next(error);
   }
-
-  const file = await prisma.file.findUnique({
-    where: { id: fileId },
-  });
-
-  if (!file) {
-    return res.render("sharedError", { message: { text: "File not found!" } });
-  }
-
-  const fileExist = await prisma.sharedFile.findFirst({
-    where: {
-      fileId: fileId,
-    },
-    include: {
-      share: true,
-    },
-  });
-
-  if (fileExist && fileExist.share.expiresAt > currentTime) {
-    return res.render("sharedError", { message: { text: "You already shared this file" } });
-  }
-
-  if (fileExist && fileExist.share.expiresAt < currentTime) {
-    console.log("fileExpired");
-
-    await prisma.sharedFile.delete({
-      where: {
-        id: fileExist.id,
-      },
-    });
-
-    await prisma.share.delete({
-      where: {
-        id: fileExist.shareId,
-      },
-    });
-  }
-
-  const expirationDate = new Date(Date.now() + parseInt(expireIn) * 60 * 60 * 1000);
 
   try {
-    await prisma.share.create({
+    const currentTime = new Date();
+    const file = await prisma.file.findUnique({
+      where: { id: fileId },
+    });
+
+    if (!file) {
+      const error = new Error("File not found");
+      error.status = 404;
+      return next(error);
+    }
+
+    const existingShare = await prisma.sharedFile.findFirst({
+      where: {
+        fileId: fileId,
+      },
+      include: {
+        share: true,
+      },
+    });
+
+    if (existingShare) {
+      if (existingShare.share.expiresAt > currentTime) {
+        const error = new Error("You already shared this file");
+        error.status = 400;
+        return next(error);
+      }
+
+      await prisma.$transaction([
+        prisma.sharedFile.delete({ where: { id: existingShare.id } }),
+        prisma.share.delete({ where: { id: existingShare.shareId } }),
+      ]);
+    }
+
+    const expirationDate = new Date(Date.now() + parseInt(expireIn) * 60 * 60 * 1000);
+
+    const newShare = await prisma.share.create({
       data: {
         expiresAt: expirationDate,
         sharedFiles: {
@@ -61,29 +56,26 @@ export const shared = async (req, res) => {
       },
     });
 
-    const folderId = await prisma.sharedFile.findUnique({
-      where: {
-        fileId: fileId,
-      },
-      include: {
-        file: true,
-      },
+    const sharedFile = await prisma.sharedFile.findFirst({
+      where: { shareId: newShare.id },
+      include: { file: true },
     });
 
-    const folderUrl = folderId.file.folderId || "";
+    const folderUrl = sharedFile.file.folderId || "";
 
     return res.redirect("/dashboard/" + folderUrl);
   } catch (error) {
     console.error("Error occurred:", error);
-    return res.redirect("/dashboard");
+    next(error);
   }
 };
 
 export const sharePublic = async (req, res) => {
   const { fileId } = req.params;
-  const currentDate = new Date();
 
   try {
+    const currentDate = new Date();
+
     const sharedFile = await prisma.sharedFile.findFirst({
       where: {
         fileId: fileId,
@@ -100,9 +92,9 @@ export const sharePublic = async (req, res) => {
     });
 
     if (!sharedFile) {
-      return res
-        .status(404)
-        .render("sharedError", { message: { text: "File not found or expired" } });
+      const error = new Error("File not found or expired");
+      error.status = 404;
+      return next(error);
     }
 
     const data = {
@@ -114,6 +106,6 @@ export const sharePublic = async (req, res) => {
 
     return res.render("sharePublic", { data });
   } catch (error) {
-    return res.status(500).render("sharedError", { message: { text: "Internal server error" } });
+    next(error);
   }
 };

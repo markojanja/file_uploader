@@ -11,6 +11,7 @@ import SharedRoute from "./routes/sharedRoute.js";
 import SharePublicRoute from "./routes/sharedPublicRoute.js";
 import { isAuth, redirectIfAuth } from "./middleware/auth.middleware.js";
 import getUser from "./middleware/getUser.middlware.js";
+import errorHandler from "./middleware/errorHandler.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -56,6 +57,8 @@ app.use("/dashboard", isAuth, DashRoute);
 app.use("/", SharedRoute);
 
 app.use("/shared", SharePublicRoute);
+
+app.use(errorHandler);
 
 app.all("*", (req, res) => {
   res.status(404).render("404");
