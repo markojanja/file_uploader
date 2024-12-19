@@ -11,7 +11,7 @@ export const uploadGet = (req, res) => {
   res.render("upload-form", { parentId: id });
 };
 
-export const uploadCreatePost = async (req, res) => {
+export const uploadCreatePost = async (req, res, next) => {
   const { id } = req.params || null;
   const { name } = req.body;
   const userId = req.user.id;
@@ -30,16 +30,13 @@ export const uploadCreatePost = async (req, res) => {
       },
     });
 
-    const newurl = newFile.id;
-    console.log(newurl);
-
     res.redirect(`/dashboard`);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-export const downloadFile = async (req, res) => {
+export const downloadFile = async (req, res, next) => {
   const id = req.params.id;
 
   try {
@@ -56,7 +53,7 @@ export const downloadFile = async (req, res) => {
       }
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 

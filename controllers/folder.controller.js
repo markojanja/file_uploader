@@ -1,7 +1,7 @@
 import prisma from "../db/prisma.js";
 import { sortFilesAndFolders } from "../utils/utils.js";
 
-export const folderGet = async (req, res) => {
+export const folderGet = async (req, res, next) => {
   const { id } = req.params || null;
 
   try {
@@ -30,17 +30,17 @@ export const folderGet = async (req, res) => {
       parentId: id,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-export const folderCreateGet = (req, res) => {
+export const folderCreateGet = (req, res, next) => {
   const { id } = req.params || null;
 
   res.render("create-form", { parentId: id });
 };
 
-export const folderCreate = async (req, res) => {
+export const folderCreate = async (req, res, next) => {
   const parentId = req.params.id || null;
 
   const { folderName } = req.body;
@@ -57,11 +57,11 @@ export const folderCreate = async (req, res) => {
     }
     res.redirect(`/dashboard/${parentId}`);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-export const folderEdit = async (req, res) => {
+export const folderEdit = async (req, res, next) => {
   const { id } = req.params;
   try {
     const folder = await prisma.folder.findUnique({
@@ -78,16 +78,15 @@ export const folderEdit = async (req, res) => {
 
     res.render("edit-form", { parentId: id, folder });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-export const folderEditPost = async (req, res) => {
+export const folderEditPost = async (req, res, next) => {
   const { id } = req.params || null;
   const { name } = req.body;
 
   try {
-    console.log(name);
     await prisma.folder.update({
       where: {
         id: id,
@@ -99,11 +98,11 @@ export const folderEditPost = async (req, res) => {
 
     res.redirect(`/dashboard/${id}`);
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
 
-export const folderDeletePost = async (req, res) => {
+export const folderDeletePost = async (req, res, next) => {
   const id = req.params.id;
 
   try {
@@ -113,10 +112,8 @@ export const folderDeletePost = async (req, res) => {
       },
     });
 
-    console.log("f to del", folder);
-
     res.redirect("/dashboard");
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };

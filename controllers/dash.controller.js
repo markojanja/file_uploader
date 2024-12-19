@@ -1,7 +1,7 @@
 import prisma from "../db/prisma.js";
 import { sortFilesAndFolders } from "../utils/utils.js";
 
-export const dashboardGet = async (req, res) => {
+export const dashboardGet = async (req, res, next) => {
   try {
     const user = await prisma.user.findUnique({
       where: {
@@ -20,6 +20,11 @@ export const dashboardGet = async (req, res) => {
         },
       },
     });
+    if (!user) {
+      const error = new Error("User not found");
+      error.status = 404;
+      next(error);
+    }
 
     const data = [...user.folders, ...user.files];
 
@@ -31,6 +36,6 @@ export const dashboardGet = async (req, res) => {
       parentId: null,
     });
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };
