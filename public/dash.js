@@ -1,15 +1,15 @@
-const shareB = document.querySelectorAll(".share-btn");
+const shareButtons = document.querySelectorAll(".share-btn");
 
-shareB.forEach((b) => {
-  b.addEventListener("click", () => {
-    console.log(b.dataset.id);
+shareButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    console.log(btn.dataset.id);
     const pops = document.querySelector(".popup");
     const fileId = document.getElementById("fileId");
 
     pops.classList.toggle("show");
     const input = document.querySelector(".share-link");
-    input.value = `http://localhost:3000/shared/${b.dataset.id}`;
-    fileId.value = b.dataset.id.trim();
+    input.value = `http://localhost:3000/shared/${btn.dataset.id}`;
+    fileId.value = btn.dataset.id.trim();
   });
 });
 

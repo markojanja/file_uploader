@@ -33,7 +33,9 @@
         <a href="/dashboard/<%= item.id %>/delete" title="Delete">
           <i class="fa-solid fa-trash"></i>
         </a>
-        <button class="share-btn" data-id="<%= item.id %> ">share</button>
+        <button class="share-btn" data-id="<%= item.id %> ">
+          <i class="fa-solid fa-share-nodes"></i>
+        </button>
         <% } else if (item.type === 'FOLDER') { %>
         <a href="/dashboard/<%= item.id %>/edit" title="Edit">
           <i class="fa-solid fa-edit"></i>
