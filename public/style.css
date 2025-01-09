@@ -404,9 +404,13 @@ tr {
 .share-container {
   flex: 1;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   align-items: center;
   justify-content: flex-start;
+  background-color: #151518;
+  padding: 1rem;
+  max-height: 450px;
+  border-radius: 0.5rem;
 }
 
 .share-content {
@@ -414,10 +418,12 @@ tr {
   flex-direction: column;
   gap: 1rem;
   flex: 1;
+  margin-left: 1.5rem;
 }
 .share-img {
-  max-width: 400px;
+  max-width: 500px;
   height: auto;
+  flex: 1;
 }
 .share-btn {
   cursor: pointer;
