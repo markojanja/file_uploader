@@ -409,8 +409,15 @@ tr {
   justify-content: flex-start;
   background-color: #151518;
   padding: 1rem;
-  max-height: 450px;
+  max-height: 500px;
+  width: 50%;
   border-radius: 0.5rem;
+
+  @media (max-width: 450px) {
+    flex-direction: column;
+    min-height: fit-content;
+    width: 80%;
+  }
 }
 
 .share-content {
@@ -421,9 +428,20 @@ tr {
   margin-left: 1.5rem;
 }
 .share-img {
-  max-width: 500px;
-  height: auto;
+  padding: 0.5rem;
   flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @media (max-width: 450px) {
+    width: 80%;
+    padding: 0;
+  }
+}
+.share-img img {
+  max-width: 300px;
+  height: auto;
+  object-fit: cover;
 }
 .share-btn {
   cursor: pointer;

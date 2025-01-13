@@ -9,9 +9,9 @@
           <div class="share-content">
             <h1><%= data.name %></h1>
             <p>author:batman</p>
-            <p>file size: 15MB</p>
-            <p>file type: .png</p>
-            <p>created at: 12/02/2024, 13:00:00 PM</p>
+            <p>file size: <%- data.fileSize %>MB</p>
+            <p>file type: <%- data.ext %></p>
+            <p>created at: <%- data.createdAt %></p>
             <p>expires at: <%= data.expiresAt %></p>
             <button class="share-btn-primary" style="align-self: flex-start">DOWNLOAD</button>
           </div>
@@ -20,9 +20,26 @@
           <div class="share-img">
             <img src="<%= data.url %> " alt="<%= data.name %> " />
           </div>
+          <% } %> <% if (data.ext.includes('ppt') || data.ext.includes("pptx")) { %>
+          <div class="share-img">
+            <img src="/assets/file-powerpoint-solid.svg" alt="power point file" />
+          </div>
+          <% } %> <% if (data.ext.includes('doc') || data.ext.includes("docx")) { %>
+          <div class="share-img">
+            <img src="/assets/file-word-solid.svg" alt="word file" />
+          </div>
           <% } %> <% if (data.ext.includes('pdf')) { %>
           <div class="share-img">
-            <img src="/assets/pdf.png" alt="pdf file" />
+            <img src="/assets/file-pdf-solid.svg" alt="pdf file" />
+          </div>
+          <% } %> <% if (data.ext.includes('xls') || data.ext.includes('xlsx')) { %>
+          <div class="share-img">
+            <img src="/assets/file-excel-solid.svg" alt="excel file" />
+          </div>
+          <% } %> <% if (data.ext.includes('mp4') || data.ext.includes('mp3') ||
+          data.ext.includes('mov') ) { %>
+          <div class="share-img">
+            <img src="/assets/file-video-solid.svg" alt="excel file" />
           </div>
           <% } %>
         </div>

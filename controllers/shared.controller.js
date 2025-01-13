@@ -1,4 +1,7 @@
 import prisma from "../db/prisma.js";
+import fs from "fs";
+import path from "path";
+import url from "url";
 
 export const shared = async (req, res, next) => {
   const { fileId, expireIn } = req.body;
@@ -70,7 +73,7 @@ export const shared = async (req, res, next) => {
   }
 };
 
-export const sharePublic = async (req, res) => {
+export const sharePublic = async (req, res, next) => {
   const { fileId } = req.params;
 
   try {
@@ -96,12 +99,35 @@ export const sharePublic = async (req, res) => {
       error.status = 404;
       return next(error);
     }
+    // Get file path
+    const __filename = url.fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    console.log(__filename, __dirname);
+    const filePath = path.join(__dirname, "..", "public", sharedFile.file.url);
+    console.log(filePath);
+    let fileSizeInBytes = 0;
+
+    // Get file size
+    if (fs.existsSync(filePath)) {
+      const stats = fs.statSync(filePath);
+
+      fileSizeInBytes = stats.size;
+    } else {
+      const error = new Error("File not found in storage");
+      error.status = 404;
+      return next(error);
+    }
+
+    const fileSizeInKB = fileSizeInBytes / 1024;
+    const fileSizeInMB = fileSizeInKB / 1024;
 
     const data = {
       name: sharedFile.file.name,
       url: sharedFile.file.url,
       ext: sharedFile.file.ext_name,
+      createdAt: new Date(sharedFile.share.createdAt).toLocaleString(),
       expiresAt: new Date(sharedFile.share.expiresAt).toLocaleString(),
+      fileSize: fileSizeInMB.toFixed(2),
     };
 
     return res.render("sharePublic", { data });
