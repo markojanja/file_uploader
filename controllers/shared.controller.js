@@ -102,9 +102,9 @@ export const sharePublic = async (req, res, next) => {
     // Get file path
     const __filename = url.fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    console.log(__filename, __dirname);
+
     const filePath = path.join(__dirname, "..", "public", sharedFile.file.url);
-    console.log(filePath);
+
     let fileSizeInBytes = 0;
 
     // Get file size

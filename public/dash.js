@@ -28,6 +28,7 @@ copyBtn.addEventListener("click", async (e) => {
   const clipboardLink = link.value;
   try {
     await navigator.clipboard.writeText(clipboardLink.trim());
+    copyBtn.classList.add("active");
   } catch (error) {
     console.log(error);
   }
