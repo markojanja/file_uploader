@@ -38,7 +38,6 @@ export const uploadCreatePost = async (req, res, next) => {
 
 export const downloadFile = async (req, res, next) => {
   const id = req.params.id;
-
   try {
     const file = await prisma.file.findUnique({
       where: {

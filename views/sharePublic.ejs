@@ -13,7 +13,12 @@
             <p>file type: <%- data.ext %></p>
             <p>created at: <%- data.createdAt %></p>
             <p>expires at: <%= data.expiresAt %></p>
-            <button class="share-btn-primary" style="align-self: flex-start">DOWNLOAD</button>
+            <a
+              href="/shared/<%- data.id %>/download"
+              class="share-btn-primary"
+              style="align-self: flex-start"
+              >DOWNLOAD</a
+            >
           </div>
           <% if (data.ext.includes('jpg') || data.ext.includes("jpeg") || data.ext.includes("png")
           || data.ext.includes("gif")) { %>

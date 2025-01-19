@@ -3,6 +3,9 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 
+const __filename = url.fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 export const shared = async (req, res, next) => {
   const { fileId, expireIn } = req.body;
 
@@ -122,6 +125,7 @@ export const sharePublic = async (req, res, next) => {
     const fileSizeInMB = fileSizeInKB / 1024;
 
     const data = {
+      id: sharedFile.file.id,
       name: sharedFile.file.name,
       url: sharedFile.file.url,
       ext: sharedFile.file.ext_name,
@@ -131,6 +135,26 @@ export const sharePublic = async (req, res, next) => {
     };
 
     return res.render("sharePublic", { data });
+  } catch (error) {
+    next(error);
+  }
+};
+export const downloadFile = async (req, res, next) => {
+  const id = req.params.fileId;
+  console.log(req.params);
+  try {
+    const file = await prisma.file.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    const filepath = path.join(__dirname, "..", "public", file.url);
+
+    res.download(filepath, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   } catch (error) {
     next(error);
   }
