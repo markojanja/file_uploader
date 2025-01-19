@@ -59,6 +59,16 @@ export const signinPost = (req, res, next) => {
 export const logout = async (req, res, next) => {
   req.logout((err) => {
     if (err) return next(err);
-    res.redirect("/");
+
+    // Destroy the session
+    req.session.destroy((err) => {
+      if (err) return next(err);
+
+      // Clear the session cookie
+      res.clearCookie("connect.sid", { path: "/" });
+      res.setHeader("Cache-Control", "no-store");
+      // Redirect to home page after logout
+      res.redirect("/");
+    });
   });
 };

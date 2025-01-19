@@ -12,6 +12,7 @@ import SharePublicRoute from "./routes/sharedPublicRoute.js";
 import { isAuth, redirectIfAuth } from "./middleware/auth.middleware.js";
 import getUser from "./middleware/getUser.middlware.js";
 import errorHandler from "./middleware/errorHandler.js";
+import { disableCache } from "./middleware/disableCache.js";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -30,10 +31,12 @@ app.use(
   session({
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      httpOnly: true, // Ensures that the cookie is only accessible by the server
+      secure: process.env.NODE_ENV === "production", // Use 'secure' flag for HTTPS in production
     },
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: new PrismaSessionStore(prisma, {
       checkPeriod: 2 * 60 * 1000,
       dbRecordIdIsSessionId: true,
@@ -52,7 +55,7 @@ app.get("/", redirectIfAuth, (req, res) => {
 
 app.use("/auth", AuthRoute);
 
-app.use("/dashboard", isAuth, DashRoute);
+app.use("/dashboard", isAuth, disableCache, DashRoute);
 
 app.use("/", SharedRoute);
 
