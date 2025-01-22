@@ -1,15 +1,46 @@
+const checkIsFileShared = async (id) => {
+  try {
+    const response = await fetch("http://localhost:3000/dashboard/is-shared", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      return data;
+    } else {
+      console.log("error");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const shareButtons = document.querySelectorAll(".share-btn");
+const inputGroup = document.querySelector(".input-group");
 
 shareButtons.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    console.log(btn.dataset.id);
-    const pops = document.querySelector(".popup");
-    const fileId = document.getElementById("fileId");
+  btn.addEventListener("click", async () => {
+    try {
+      const id = btn.dataset.id.trim();
+      const pops = document.querySelector(".popup");
+      const fileId = document.getElementById("fileId");
 
-    pops.classList.toggle("show");
-    const input = document.querySelector(".share-link");
-    input.value = `http://localhost:3000/shared/${btn.dataset.id}`;
-    fileId.value = btn.dataset.id.trim();
+      const input = document.querySelector(".share-link");
+      input.value = `http://localhost:3000/shared/${id}`;
+      fileId.value = id;
+      console.log(fileId.value);
+      const sharedFile = await checkIsFileShared(id);
+      pops.classList.toggle("show");
+      if (sharedFile.shared) {
+        inputGroup.style.display = "none";
+      }
+    } catch (error) {
+      console.log(error);
+    }
   });
 });
 

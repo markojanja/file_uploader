@@ -362,10 +362,18 @@ tr {
 
 .share-form {
   width: fit-content;
-  min-height: 150px;
+  min-height: fit-content;
   background-color: #151518;
   border: 1px solid #f0f0f0;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  margin: 0 auto;
+}
+.input-group {
   display: flex;
   flex-direction: column;
   align-items: flex-start;

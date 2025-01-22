@@ -98,6 +98,7 @@ export const sharePublic = async (req, res, next) => {
     });
 
     if (!sharedFile) {
+      await prisma.$transaction([prisma.sharedFile.delete({ where: { fileId: fileId } })]);
       const error = new Error("File not found or expired");
       error.status = 404;
       return next(error);
