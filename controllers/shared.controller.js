@@ -103,9 +103,6 @@ export const sharePublic = async (req, res, next) => {
       error.status = 404;
       return next(error);
     }
-    // Get file path
-    const __filename = url.fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
 
     const filePath = path.join(__dirname, "..", "public", sharedFile.file.url);
 
