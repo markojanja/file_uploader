@@ -27,10 +27,10 @@ router.post("/is-shared", async (req, res, next) => {
   try {
     const file = await prisma.sharedFile.findFirst({
       where: {
-        fileId: id.trim(), // Use the foreign key field explicitly.
+        fileId: id.trim(),
       },
     });
-    console.log(file);
+
     if (file) {
       return res.status(200).json({ shared: true });
     } else {
